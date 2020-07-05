@@ -1,32 +1,44 @@
 #include <iostream>
-#include <cstdio>
+#include <queue>
+
 using namespace std;
 
-int main() {
-	
-	int a, b, c;
-	int mul, j, k;
-	int array[10];
-	for(int i=0;i < 10; i++){
-		array[i] = 0;
-	}
-		
-	cin >> a;
-	cin >> b;
-	cin >> c;
-	mul = a * b * c;
-	j = 10;
+int main(){
 
-	while(mul){
-		
-		k = mul % 10;
-		array[k] ++;
-		mul = mul/10;
-	}
-	
-	for(int i=0; i<10; i++){
-		cout << array[i] <<endl;
-	}
-	
+	// 큐 생성
+	queue<int> q;
+
+
+	// push
+	q.push(1);
+	q.push(2);
+	q.push(3);
+	q.push(4);
+	q.push(5);
+	q.push(6);
+
+
+	// pop
+	q.pop();
+	q.pop();
+	q.pop();
+
+
+	// front
+	cout << "front element : " << q.front() << '\n';
+
+
+	// back
+	cout << "back element : " << q.back() << '\n';
+
+
+	// size
+	cout << "queue size : " << q.size() << '\n';
+
+
+	// empty
+	cout << "Is it empty? : " << (q.empty() ? "Yes" : "No") << '\n';
+
 	return 0;
+
 }
