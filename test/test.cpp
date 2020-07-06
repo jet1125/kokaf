@@ -7,15 +7,15 @@ int main(){
 
 	// 큐 생성
 	queue<int> q;
-
-
+	int a,b,c,d,e,f;
+	cin >> a >> b >> c >> d >> e >> f;
 	// push
-	q.push(1);
-	q.push(2);
-	q.push(3);
-	q.push(4);
-	q.push(5);
-	q.push(6);
+	q.push(a);
+	q.push(b);
+	q.push(c);
+	q.push(d);
+	q.push(e);
+	q.push(f);
 
 
 	// pop
