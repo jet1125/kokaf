@@ -1,16 +1,22 @@
 #include <iostream>
 
 using namespace std;
+int cnt = 0;
 
-int find_min(int A[], int B[], int N, int M){
+int find_min(int A[], int B[], int N){
 	int min = 10;
 	int locate;
 	for(int i = 0; i < N; i ++){
-		if(B[i]==2 && B[i] <= min)
+		if(B[i]==2 && A[i] <= min){
+			min = A[i];
 			locate = i;
+			
+		}
 	}
 	return locate;
 }
+
+
 
 int main(){
 	int T;
@@ -22,7 +28,7 @@ int main(){
 		
 		int A[N];
 		int B[N];
-		int cnt = 0;
+		cnt = 0;
 		int locate = 0;
 		
 		
@@ -42,19 +48,33 @@ int main(){
 				B[i] = 2;
 			}
 		}
-
+		
+		// for(int i = 0; i < N; i ++){
+		// 	cout << A[i];
+			
+		// }
+		// cout << endl;
+		
+		// for(int i = 0; i < N; i ++){
+		// 	cout << B[i];
+			
+		// }
+		// cout << endl;
+		
 	
 		int j = 1;
-		locate = find_min(A, B, N, M);
-		//cout << locate << endl;
-		
+		locate = find_min(A, B, N);
+		// cout << locate << endl;
+		// cout << cnt << endl;
 		while((locate+j)%N != M){
 			if(B[(locate+j) % N] == 1)
 				cnt ++;
-			j++;
+			//cout << ((locate+j)%N) << endl;
+			//cout << B[(locate+j) % N] << endl;
+			j++; 
 		}
 		
-		 cout << (cnt+1) << endl;
+		 cout << (cnt + 1) << endl;
 	}
 	
 }
