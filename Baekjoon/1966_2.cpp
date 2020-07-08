@@ -3,17 +3,25 @@
 using namespace std;
 int cnt = 0;
 
-int find_min(int A[], int B[], int N){
-	int min = 10;
-	int locate;
-	for(int i = 0; i < N; i ++){
-		if(B[i]==2 && A[i] <= min){
-			min = A[i];
-			locate = i;
-			
+int find_min(int A[], int B[], int N, int M){
+	int min = 9;
+	int location = 0;
+	int temp = 0;
+
+	for(int i = 9; i > A[M]; i --){
+		//temp = 0;
+		for(int j = 0; j < N; j ++){
+		
+			if(A[(location +j) % N] == i){
+				
+				temp = (location + j) % N;
+		
+			}
 		}
+		location = temp;
 	}
-	return locate;
+	
+	return location;
 }
 
 
@@ -49,29 +57,19 @@ int main(){
 			}
 		}
 		
-		// for(int i = 0; i < N; i ++){
-		// 	cout << A[i];
-			
-		// }
-		// cout << endl;
-		
-		// for(int i = 0; i < N; i ++){
-		// 	cout << B[i];
-			
-		// }
-		// cout << endl;
-		
+
 	
-		int j = 1;
-		locate = find_min(A, B, N);
-		// cout << locate << endl;
-		// cout << cnt << endl;
+		int j = 0;
+		locate = find_min(A, B, N, M);
+		//cout << locate << endl;
+		//cout << (locate+j)%N << endl;
 		while((locate+j)%N != M){
+			
 			if(B[(locate+j) % N] == 1)
 				cnt ++;
-			//cout << ((locate+j)%N) << endl;
-			//cout << B[(locate+j) % N] << endl;
+
 			j++; 
+			
 		}
 		
 		 cout << (cnt + 1) << endl;
