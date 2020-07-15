@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-#define MAX_SIZE 100
+
 
 typedef struct node Node;
 
