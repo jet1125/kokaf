@@ -13,7 +13,17 @@ struct node{
 
 };
 
-void push(Node * tail, int value){
+void push_front(Node * head, int value){
+	Node * n_node = (Node *)malloc(sizeof(Node));
+	n_node->value = value;
+	n_node->dum = 0;
+	n_node->prev = head->prev;
+	n_node->prev->next = n_node;
+	n_node->next = head;
+	n_node->next->prev = n_node;
+}
+
+void push_back(Node * tail, int value){
 	Node * n_node = (Node *)malloc(sizeof(Node));
 	n_node->value = value;
 	n_node->dum = 0;
@@ -23,7 +33,7 @@ void push(Node * tail, int value){
 	n_node->prev->next = n_node;
 }
 
-void pop(Node * head){
+void pop_front(Node * head){
 	
 	if(head->prev->dum == 1)
 		cout << -1 << endl;
@@ -35,6 +45,27 @@ void pop(Node * head){
 		Node * tmp = head->prev;
 		tmp->prev->next = head;
 		tmp->next->prev = tmp->prev;
+		// tmp->next = NULL;
+		// tmp->prev = NULL;
+		free(tmp);
+	}
+	
+	
+	
+}
+
+void pop_back(Node * tail){
+	
+	if(tail->next->dum == 1)
+		cout << -1 << endl;
+	
+	else{
+		
+		cout << tail->next->value << endl;
+		
+		Node * tmp = tail->next;
+		tmp->next->prev = tail;
+		tmp->prev->next = tmp->next;
 		// tmp->next = NULL;
 		// tmp->prev = NULL;
 		free(tmp);
@@ -104,15 +135,28 @@ int main(){
 	
 	for (int i = 0; i < N; i ++){
 		cin >> c;
-		if(c == "push"){
+		if(c == "push_front"){
 			int X;
 			cin >> X;
-			push(tail, X);
+			push_front(head, X);
 			
 		}
-		else if(c == "pop"){
-			pop(head);
+		
+		else if(c == "push_back"){
+			int X;
+			cin >> X;
+			push_back(tail, X);
+			
 		}
+		
+		else if(c == "pop_front"){
+			pop_front(head);
+		}
+		
+		else if(c == "pop_back"){
+			pop_back(tail);
+		}
+		
 		else if(c == "size")
 			size(tail);
 		
