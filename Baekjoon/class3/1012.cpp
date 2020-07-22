@@ -42,6 +42,8 @@ int main(){
 				}
 				else{
 					n_node = (Node*)malloc(sizeof(Node));
+					tmp->down = n_node;
+					n_node->up = tmp;
 					n_node->cor = {i,j};
 				}
 				tmp = n_node;
