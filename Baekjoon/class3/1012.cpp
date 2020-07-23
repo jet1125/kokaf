@@ -2,64 +2,90 @@
 
 using namespace std;
 
-typedef struct node Node;
+void find_m(int** arr, int x, int y, int m, int n){
+	
+	if(x < m-1){
+		if(arr[x+1][y] == 1){
+			find_m(arr, x+1, y, m, n);
+		}
+	
+	}
+	if(y < n -1){
+		if(arr[x][y+1] == 1){
+			find_m(arr, x, y+1, m, n);
+		}
+	}
+	
+	arr[x][y] = 0;
+}
 
-struct node{
-	//int size;
-	//int dum;
-	int value;
-	int cor[2];
-	struct node *next;
-	struct node *prev;
-	struct node *up;
-	struct node *down;
-
-};
 
 int main(){
-	
 	int T;
-	
 	cin >> T;
-	
-	for(int i = 0; i < T; i ++){
-		Node * head;	
-		head = (Node*)malloc(sizeof(Node));
-		head->value = 0;
-		head->cor = {0,0};
+	for(int l = 0; l < T; l ++){
+		int** arr = nullptr;
+		int m, n, k;
+		int cnt;
+		cin >> m >> n >> k;
+		arr = new int* [m];  //x = (int*)malloc(sizeof(int)*5);
+		for(int i =0; i < m; i ++){
+			arr[i] = new int[m];
+		}
+
+		for (int i = 0; i < m; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{
+				arr[i][j] = 0;
+			}
+		}
 		
-		int M, N, K;
-		
-		cin >> M >> N >> K;
-		
-		for(int i = 0; i < M; i ++){
-			for(int j = 0; j < N; j ++){
-				
-				Node * n_node, tmp;
-				if(i == 0 && j == 0){
-					n_node = head;	
-					
+		for(int i = 0; i < k; i ++){
+			
+			int x,y;
+			
+			cin >> x >> y;
+			
+			arr[x][y] = 1;
+		}
+		cnt = 0;
+		for (int i = 0; i < n; i++)
+		{
+			for (int j = 0; j < m; j++)
+			{
+				if(arr[j][i] == 1){
+					find_m(arr, j, i, m, n);
+					cnt ++;
 				}
-				else{
-					n_node = (Node*)malloc(sizeof(Node));
-					tmp->down = n_node;
-					n_node->up = tmp;
-					n_node->cor = {i,j};
-				}
-				tmp = n_node;
-				
-				
 			}
 			
 		}
 		
-	
-		for (int j = 0; j < K; j ++){
-			
-		}
+		
+		// for (int i = 0; i < n; i++)
+		// {
+		// 	for (int j = 0; j < m; j++)
+		// 	{
+		// 		std::cout << arr[j][i]<<" ";
+		// 	}
+		// 	std::cout << std::endl;
+		// }
 		
 		
+		cout << cnt << endl;
+		
+		
+		
+		for (int i = 0; i < n; i++)
+			delete [] arr[i];
+		delete [] arr;
+
 	}
-	
-	
+
+
 }
+
+// http://blog.naver.com/PostView.nhn?blogId=chansung0602&logNo=221022228017
+
+//https://twinparadox.tistory.com/439
