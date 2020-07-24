@@ -29,7 +29,7 @@ int main(){
 		std::cout << std::endl;
 	}
 
-	for (int i = 0; i < m; i++)
+	for (int i = 0; i < n; i++)
 		delete [] x[i];
 	delete [] x;
 

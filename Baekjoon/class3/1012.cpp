@@ -1,46 +1,56 @@
 #include <iostream>
-
+#include <string.h>
 using namespace std;
 
-void find_m(int** arr, int x, int y, int m, int n){
+
+int arr[51][51];
+int vis[51][51];
+
+
+void find_m(int x, int y, int m, int n){
 	
 	if(x < m-1){
-		if(arr[x+1][y] == 1){
-			find_m(arr, x+1, y, m, n);
+		if(arr[x+1][y] == 1 && vis[x+1][y] == 0){
+			find_m(x+1, y, m, n);
 		}
 	
 	}
 	if(y < n -1){
-		if(arr[x][y+1] == 1){
-			find_m(arr, x, y+1, m, n);
+		if(arr[x][y+1] == 1 && vis[x][y+1] == 0){
+			find_m(x, y+1, m, n);
 		}
 	}
 	
-	arr[x][y] = 0;
+	vis[x][y] = 1;
 }
-
 
 int main(){
 	int T;
 	cin >> T;
 	for(int l = 0; l < T; l ++){
-		int** arr = nullptr;
+		//int** arr = nullptr;
+		//int** vis = nullptr;
 		int m, n, k;
 		int cnt;
 		cin >> m >> n >> k;
-		arr = new int* [m];  //x = (int*)malloc(sizeof(int)*5);
-		for(int i =0; i < m; i ++){
-			arr[i] = new int[m];
-		}
-
-		for (int i = 0; i < m; i++)
-		{
-			for (int j = 0; j < n; j++)
-			{
-				arr[i][j] = 0;
-			}
-		}
+		//arr = new int* [m];  //x = (int*)malloc(sizeof(int)*5);
 		
+		// vis = new int* [m]; 
+		// for(int i =0; i < m; i ++){
+		// 	arr[i] = new int[m];
+		// 	vis[i] = new int[m];
+		// }
+
+		// for (int i = 0; i < m; i++)
+		// {
+		// 	for (int j = 0; j < n; j++)
+		// 	{
+		// 		arr[i][j] = 0;
+		// 		vis[i][j] = 0;
+		// 	}
+		// }
+		memset(arr,0,sizeof(arr));
+        memset(vis,0,sizeof(vis));
 		for(int i = 0; i < k; i ++){
 			
 			int x,y;
@@ -54,8 +64,8 @@ int main(){
 		{
 			for (int j = 0; j < m; j++)
 			{
-				if(arr[j][i] == 1){
-					find_m(arr, j, i, m, n);
+				if(arr[j][i] == 1 && vis[j][i] == 0){
+					find_m(j, i, m, n);
 					cnt ++;
 				}
 			}
@@ -73,13 +83,13 @@ int main(){
 		// }
 		
 		
-		cout << cnt << endl;
+		cout << cnt << "\n";
 		
 		
 		
-		for (int i = 0; i < n; i++)
-			delete [] arr[i];
-		delete [] arr;
+		// for (int i = 0; i < n; i++)
+		// 	delete [] arr[i];
+		// delete [] arr;
 
 	}
 
