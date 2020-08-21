@@ -1,5 +1,6 @@
 #include <iostream>
 #include <utility>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,10 +13,10 @@ void max_heap(pair<int, int> arr[], int p, int heapsize){
 		
 		if(left < heapsize || right < heapsize){
 			largest = p;
-			if(left < heapsize && arr[left].first > arr[largest].first)
+			if(left < heapsize && arr[left].second > arr[largest].second)
 		//SWAP(arr[left-1], arr[p-1], temp);
 				largest = left;
-			if(right < heapsize && arr[right].first > arr[largest].first)
+			if(right < heapsize && arr[right].second > arr[largest].second)
 				largest = right;
 	
 			if(largest == p)
@@ -43,6 +44,7 @@ void heapify(pair<int, int> arr[], int heapsize){
 	}
 	
 }
+
 
 int reservation_max(pair<int, int> arr[], int size){
 	int max = 0;
@@ -86,6 +88,31 @@ int main(){
 		arr[i]= tmp;
 		//cout << arr[N-i];	
 		max_heap(arr, 0, i);
+	}
+	
+	//int cur = arr[N-1].second;
+	pair<int, int> * sort = nullptr;
+	sort = new pair<int, int>[N];
+	int cur_pos = N - 1;
+	int k = 0;
+	for(int i = N - 1; i > 0; i --){
+		if(arr[i -1].second == arr[cur_pos].second){
+			sort[k].first = 
+			k ++;
+		}
+		
+		else{
+			cur_pos = i;
+		}
+	}
+	int i = N -1;
+	while(i > 0){
+		if(arr)
+	}
+	
+	for(int i = 0; i < N; i ++){
+		cout << arr[i].first << " " << arr[i].second << endl;
+		
 	}
 	
 	cout << reservation_max(arr, N) << endl;
