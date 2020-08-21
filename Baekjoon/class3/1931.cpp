@@ -1,48 +1,68 @@
 #include <iostream>
-#define SWAP(x, y, temp) ( (temp)=(x), (x)=(y), (y)=(temp) )
-
+#include <utility>
 
 using namespace std;
 
 
-void heapify(pair<int, int> arr[], int p, int heapsize){
-	int left = p * 2;
-	int right = p * 2 + 1;
-	int largest;
-	int temp;
-	largest = p;
-	if(left <= heapsize && arr[left-1].first < arr[largest-1].first)
-		//SWAP(arr[left-1], arr[p-1], temp);
-		largest = left;
-	if(right <= heapsize && arr[right-1].first < arr[largest-1].first)
-		largest = right;
-	
-	if(largest != p){
-		int tmp;
-		tmp = arr[largest-1].first;
-		arr[largest-1].first = arr[p-1].first;
-		arr[p-1].first = tmp;
+void max_heap(pair<int, int> arr[], int p, int heapsize){
+	while(p <= heapsize){
+		int left = p * 2 + 1;
+		int right = p * 2 + 2;
+		int largest;
 		
-		tmp = arr[largest-1].second;
-		arr[largest-1].second = arr[p-1].second;
-		arr[p-1].second = tmp;
-		//SWAP(arr[largest-1], arr[p-1], temp);
-	}	
+		if(left < heapsize || right < heapsize){
+			largest = p;
+			if(left < heapsize && arr[left].first > arr[largest].first)
+		//SWAP(arr[left-1], arr[p-1], temp);
+				largest = left;
+			if(right < heapsize && arr[right].first > arr[largest].first)
+				largest = right;
+	
+			if(largest == p)
+				break;
+		
+			
+			pair<int, int> tmp = arr[largest];
+			arr[largest] = arr[p];
+			arr[p] = tmp;
+			p = largest;
+			
+		}
+		
+		else
+			break;
+	}
+	
 }
 
-void build_heap(pair<int, int> arr[], int heapsize){
+void heapify(pair<int, int> arr[], int heapsize){
 	
-	for(int i = heapsize / 2; i > 0 ; i --){
-		heapify(arr, i, heapsize);
+	for(int i = (heapsize-1) / 2; i >= 0 ; i --){
+		max_heap(arr, i, heapsize);
 		
 	}
-	// for (int i = 0; i < heapsize; i ++)
-	// 	cout << arr[i];
+	
+}
+
+int reservation_max(pair<int, int> arr[], int size){
+	int max = 0;
+	int pivot = 2^31 - 1;
+	//pair<int, int> * arr_sub = nullptr;
+	//arr_sub = new pair<int, int>[size + 1];
+	//arr_sub[size].first = 0;
+	//arr_sub[size].second = pivot;
+	for(int i = size-1; i >= 0; i --){
+		if(arr[i].second <= pivot){
+			max ++;
+			pivot = arr[i].first;
+		}
+	}
+	return max;
 }
 
 int main(){
 	int N;
-	int tmp;
+	pair<int, int> tmp;
 	cin >> N;
 	pair<int, int>* arr = nullptr;
 	arr = new pair<int, int>[N];
@@ -52,25 +72,23 @@ int main(){
 	for(int i = 0; i < N; i ++){
 		cin >> arr[i].first >> arr[i].second;
 	}
-	for(int i = N; i > 0; i --){
+	
+	heapify(arr, N);
+	
+	for(int i = N - 1; i >= 0; i --){
 		
-		build_heap(arr, i);
+		
 		//cout << arr[0] << endl;
 		//SWAP(arr[0], arr[i - 1], temp);
-		tmp = arr[0].first;
-		arr[0].first = arr[i-1].first;
-		arr[i-1].first = tmp;
 		
-		tmp = arr[0].second;
-		arr[0].second = arr[i-1].second;
-		arr[i-1].second = tmp;
+		tmp = arr[0];
+		arr[0] = arr[i];
+		arr[i]= tmp;
 		//cout << arr[N-i];	
-		
+		max_heap(arr, 0, i);
 	}
 	
-	for(int i = 0; i < N; i ++){
-		cout << arr[i].first << arr[i].second << endl;
-	}
+	cout << reservation_max(arr, N) << endl;
 	delete[] arr;
 	
 }
