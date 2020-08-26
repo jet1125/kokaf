@@ -1,10 +1,10 @@
 #include <iostream>
-
+#include <math.h>
 using namespace std;
 
 
 int main(){
-	pair<int, int> arr[10];
+	cout << pow(int(10), int(3)) << endl;
 	
 
 
