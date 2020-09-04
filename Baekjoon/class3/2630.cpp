@@ -3,12 +3,32 @@
 
 using namespace std;
 
-int move_x[4] = {1, 0, -1, 0};
-int move_y[4] = {0, -1, 0, 1};
+int cnt_W, cnt_B = 0;
 
-
-int find_cnt(int** arr, int** vis, int N){
+void find_cnt(int** arr, int x, int y, int N){
 	
+	int w = 0;
+	int b = 0;
+	for(int i = x; i < x + N; i ++){
+		for(int j = y; j < y + N; j ++){
+			
+			if(arr[j][i])
+				b ++;
+			if(!arr[j][i])
+				w ++;
+		}
+	}
+	if(b == N * N){
+		cnt_B ++;
+	}
+	else if(w == N * N)
+		cnt_W ++;
+	else{
+		find_cnt(arr, x, y, N / 2);
+		find_cnt(arr, x + N /2, y, N / 2);
+		find_cnt(arr, x, y + N /2, N / 2);
+		find_cnt(arr, x + N / 2, y + N / 2 , N / 2);
+	}
 }
 
 
@@ -19,13 +39,7 @@ int main(){
 	int** arr = nullptr;
 	arr = new int*[N];
 	for(int i = 0; i < N; i ++){
-		arr[N] = new int[N];
-	}
-	
-	int** vis = nullptr;
-	vis = new int*[N];
-	for(int i = 0; i < N; i ++){
-		vis[N] = new int[N];
+		arr[i] = new int[N];
 	}
 	
 	for(int i = 0; i < N; i ++){
@@ -34,5 +48,9 @@ int main(){
 		}
 	}
 	
-	cout << find_cnt(arr, vis, N);
+	
+	find_cnt(arr, 0, 0, N);
+	
+	cout << cnt_W << endl;
+	cout << cnt_B;
 }
