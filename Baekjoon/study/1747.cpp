@@ -29,29 +29,21 @@ bool palindrome(string s){
 	return b;
 }
 int main(){
-	int pr[1003002];
-	for(int i = 0; i < 1003001; i ++){
-		if(prime(i + 1) == true)
-			pr[i + 1] = 1;
-		else
-			pr[i + 1] = 0;
-	}
+	
 	int N;
 	cin >> N;
 	while(true){
-		N ++;
-		string s = to_string(N);
-		if(palindrome(s) == true && pr[N] == 1){
-			break;
+		
+		if(prime(N) == true){
+			
+			string s = to_string(N);
+			if(palindrome(s) == true){
+				break;	
+			}
 			
 		}
-		
+		N ++;
 	}
-	for(int i = 0; i < N; i ++){
-		if(pr[i + 1] == 1){
-			cout << i + 1 << " ";
-		}
-	}
-	cout << endl;
+	
 	cout << N << endl;
 }
